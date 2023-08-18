@@ -1,4 +1,4 @@
-setup: ping
+setup_apps: install_apps
 
-ping:
-	 ansible all -i '139.59.110.188, ' -u root -m ping
+install_apps:
+	 ansible-playbook --check playbooks/setup_webservers.yml -t install_apps -i inventory.ini

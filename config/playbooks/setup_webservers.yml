@@ -1,0 +1,35 @@
+- hosts: webservers
+  tasks:
+    - name: updates apt's cache
+      ansible.builtin.apt:
+        name: apt
+        update_cache: true
+      become: true
+
+    - name: install git
+      ansible.builtin.apt:
+        name: git
+        state: present
+        update_cache: yes
+      become: true
+      tags: install_apps
+
+    - name: install make
+      ansible.builtin.apt:
+        name: make
+        state: present
+        update_cache: true
+      become: true
+      tags: install_apps
+
+    - name: create Katya user
+      ansible.builtin.user:
+        name: Katya
+        state: present
+      tags: users
+
+    - name: create Sasha user
+      ansible.builtin.user:
+        name: Sasha
+        state: present
+      tags: users
