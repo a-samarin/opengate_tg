@@ -22,7 +22,7 @@
 #      become: yes
 
     - name: copy home page
-      ansible.builtin.copy:
+      ansible.builtin.template:
         src: ../files/index.html
         dest: "{{ root_dir }}/index.html"
       become: yes

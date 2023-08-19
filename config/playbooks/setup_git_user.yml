@@ -1,0 +1,33 @@
+- hosts: webservers
+  vars:
+    users:
+      - jaime
+      - sansa
+      - robert
+  tasks:
+  - name: install git
+    ansible.builtin.apt:
+      name: git
+      state: present
+    become: yes
+
+  - name: create users
+    ansible.builtin.user:
+      name: "{{ item }}"
+      state: present
+    with_items: "{{ users }}"
+    become: yes
+
+  - name: copy git config
+    ansible.builtin.template:
+      src: ../files/gitconfig
+      dest: "/home/{{ item }}/.gitconfig"
+    with_items: "{{ users }}"
+    become: yes
+
+  - name: create ssh key
+    ansible.builtin.authorized_key:
+      user: "{{ item }}"
+      key: ../files/id_rsa.pub
+    with_items: "{{ users }}"
+    become: yes
