@@ -1,0 +1,7 @@
+- hosts: webservers
+  tasks:
+    - name: show server name
+      ansible.builtin.debug: msg="{{ ansible_nodename }}"
+
+- import_playbook: install_git.yml
+- import_playbook: uninstall_git.yml
