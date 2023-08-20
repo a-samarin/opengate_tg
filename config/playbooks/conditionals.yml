@@ -1,0 +1,15 @@
+- hosts: all
+  tasks:
+    - name: install git to appserver
+      ansible.builtin.apt:
+        name: git
+        state: present
+      when: ansible_default_ipv4.address == "139.59.110.188"
+      become: yes
+
+    - name: install make to webserver
+      ansible.builtin.apt:
+        name: make
+        state: present
+      when: ansible_default_ipv4.address == "68.183.31.193"
+      become: yes

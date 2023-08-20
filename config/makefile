@@ -5,3 +5,6 @@ install_apps:
 
 nginx_up:
 	ansible-playbook --check playbooks/nginx.yml -i inventory.ini
+
+setup_by_conditions:
+	ansible-playbook --check playbooks/conditionals.yml -i inventory.ini
