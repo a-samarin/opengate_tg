@@ -3,23 +3,11 @@
     nginx_port: 80
     root_dir: /usr/share/nginx/html
   tasks:
-    - name: update
-      ansible.builtin.apt:
-        update_cache: yes
-      become: yes
-
     - name: install nginx
       ansible.builtin.apt:
         name: nginx
         state: latest
-#        update_cache: yes
       become: yes
-#
-#    - name: start nginx
-#      ansible.builtin.service:
-#        name: nginx
-#        state: started
-#      become: yes
 
     - name: copy home page
       ansible.builtin.template:
@@ -31,13 +19,13 @@
       ansible.builtin.template:
         src: ../files/nginx.conf
         dest: /etc/nginx/nginx.conf
-#      notify:
-#        - restart nginx
+      notify:
+        - restart nginx
       become: yes
-#
-#  handlers:
-#    - name: restart nginx
-#      ansible.builtin.service:
-#        name: nginx
-#        state: reloaded
-#      become: yes
+
+  handlers:
+    - name: restart nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+      become: yes
