@@ -1,0 +1,4 @@
+roles:
+  - name: nginxinc.nginx
+  - name: andrewrothstein.docker-cleanup
+  - name: geerlingguy.git

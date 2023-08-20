@@ -1,0 +1,22 @@
+- hosts: webservers
+  tasks:
+    - name: show server name
+      ansible.builtin.debug: msg={{ ansible_nodename }}
+
+    - name: install nginx
+      import_role:
+        name: nginxinc.nginx
+      become: yes
+
+    - name: install git
+      import_role:
+        name: geerlingguy.git
+      become: yes
+
+    - name: install docker
+      import_role:
+        name: andrewrothstein.docker-cleanup
+      become: yes
+
+    - name: show server time
+      ansible.builtin.debug: msg={{ '%Y-%m-%d %H:%M:%S' | strftime(ansible_date_time.epoch) }}
